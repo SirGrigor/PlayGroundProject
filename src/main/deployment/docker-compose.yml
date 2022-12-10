@@ -1,17 +1,18 @@
 version: "3.7"
 services:
-  api_service:
+  app:
+    container_name: spring-boot-demo-app
     build: .
-    restart: always
     ports:
       - "8080:8080"
     depends_on:
       - postgres_db
   postgres_db:
-    image: "postgres:11.4"
-    restart: always
+    image: "postgres"
     ports:
       - "5433:5432"
     environment:
       POSTGRES_DB: demo_db
       POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+
