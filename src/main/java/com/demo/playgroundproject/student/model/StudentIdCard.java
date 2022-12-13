@@ -1,7 +1,9 @@
 package com.demo.playgroundproject.student.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
