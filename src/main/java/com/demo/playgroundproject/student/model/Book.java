@@ -1,14 +1,11 @@
-package com.demo.playgroundproject;
+package com.demo.playgroundproject.student.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@AllArgsConstructor
 @Entity(name = "Book")
 @Table(name = "book")
 public class Book {
@@ -23,10 +20,10 @@ public class Book {
             generator = "book_sequence"
     )
     @Column(
-            name = "id",
+            name = "book_id",
             updatable = false
     )
-    private Long id;
+    private Long bookId;
 
     @Column(
             name = "created_at",
@@ -45,17 +42,20 @@ public class Book {
     @JoinColumn(
             name = "student_id",
             nullable = false,
-            referencedColumnName = "id",
+            referencedColumnName = "student_id",
             foreignKey = @ForeignKey(
                     name = "student_book_fk"
             )
     )
     private Student student;
 
-    public Book(Long id, LocalDateTime createdAt, String bookName, Student student) {
-        this.id = id;
-        this.createdAt = createdAt;
-        this.bookName = bookName;
-        this.student = student;
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", createdAt=" + createdAt +
+                ", bookName='" + bookName + '\'' +
+                ", student=" + student +
+                '}';
     }
 }

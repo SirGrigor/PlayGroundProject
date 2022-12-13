@@ -1,4 +1,4 @@
-package com.demo.playgroundproject;
+package com.demo.playgroundproject.student.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -6,10 +6,7 @@ import lombok.*;
 import java.io.Serializable;
 
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@AllArgsConstructor
 @Embeddable
 public class EnrolmentId implements Serializable {
 
@@ -19,8 +16,11 @@ public class EnrolmentId implements Serializable {
     @Column(name = "course_id")
     private Long courseId;
 
-    public EnrolmentId(Long studentId, Long courseId) {
-        this.studentId = studentId;
-        this.courseId = courseId;
+    @Override
+    public String toString() {
+        return "EnrolmentId{" +
+                "studentId=" + studentId +
+                ", courseId=" + courseId +
+                '}';
     }
 }

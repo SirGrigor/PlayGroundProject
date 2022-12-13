@@ -1,20 +1,17 @@
-package com.demo.playgroundproject;
+package com.demo.playgroundproject.student.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@AllArgsConstructor
 @Entity(name = "Enrolment")
 @Table(name = "enrolment")
 public class Enrolment {
 
     @EmbeddedId
-    private EnrolmentId id;
+    private EnrolmentId enrolmentId;
 
     @ManyToOne
     @MapsId("studentId")
@@ -43,10 +40,13 @@ public class Enrolment {
     )
     private LocalDateTime createdAt;
 
-    public Enrolment(EnrolmentId id, Student student, Course course, LocalDateTime createdAt) {
-        this.id = id;
-        this.student = student;
-        this.course = course;
-        this.createdAt = createdAt;
+    @Override
+    public String toString() {
+        return "Enrolment{" +
+                "enrolmentId=" + enrolmentId +
+                ", student=" + student +
+                ", course=" + course +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

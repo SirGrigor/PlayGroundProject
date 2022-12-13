@@ -1,11 +1,12 @@
-package com.demo.playgroundproject;
+package com.demo.playgroundproject.student.repository;
 
+import com.demo.playgroundproject.student.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Repository
-@Transactional(readOnly = true)
 public interface StudentRepository extends JpaRepository<Student, Long> {
-
+    Optional<Student> findStudentByEmail(String email);
 }
