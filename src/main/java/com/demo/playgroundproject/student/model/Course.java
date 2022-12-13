@@ -1,15 +1,13 @@
-package com.demo.playgroundproject;
+package com.demo.playgroundproject.student.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@AllArgsConstructor
 @Entity(name = "Course")
 @Table(name = "course")
 public class Course {
@@ -25,10 +23,10 @@ public class Course {
             generator = "course_sequence"
     )
     @Column(
-            name = "id",
+            name = "course_id",
             updatable = false
     )
-    private Long id;
+    private Long courseId;
 
     @Column(
             name = "name",
@@ -50,10 +48,13 @@ public class Course {
     )
     private List<Enrolment> enrolments = new ArrayList<>();
 
-    public Course(Long id, String name, String department, List<Enrolment> enrolments) {
-        this.id = id;
-        this.name = name;
-        this.department = department;
-        this.enrolments = enrolments;
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseId=" + courseId +
+                ", name='" + name + '\'' +
+                ", department='" + department + '\'' +
+                ", enrolments=" + enrolments +
+                '}';
     }
 }

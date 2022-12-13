@@ -1,14 +1,8 @@
 version: "3.7"
 services:
-  app:
-    container_name: spring-boot-demo-app
-    build: .
-    ports:
-      - "8080:8080"
-    depends_on:
-      - postgres_db
   postgres_db:
-    image: "postgres"
+    image: 'postgres'
+    container_name: db_postgres
     ports:
       - "5433:5432"
     environment:
@@ -16,3 +10,17 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: postgres
 
+  app:
+    container_name: spring-boot-demo-app
+    build: .
+    ports:
+      - "8090:8090"
+    depends_on:
+      - postgres_db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_db:5432/demo_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_SQL_INIT_MODE=always

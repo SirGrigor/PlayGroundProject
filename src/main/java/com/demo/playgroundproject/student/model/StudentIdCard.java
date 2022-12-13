@@ -1,13 +1,10 @@
-package com.demo.playgroundproject;
+package com.demo.playgroundproject.student.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@AllArgsConstructor
 @Entity(name = "StudentIdCard")
 @Table(
         name = "student_id_card",
@@ -31,10 +28,10 @@ public class StudentIdCard {
             generator = "student_card_id_sequence"
     )
     @Column(
-            name = "id",
+            name = "student_card_id",
             updatable = false
     )
-    private Long id;
+    private Long studentCardId;
 
     @Column(
             name = "card_number",
@@ -46,16 +43,19 @@ public class StudentIdCard {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "student_id",
-            referencedColumnName = "id",
+            referencedColumnName = "student_id",
             foreignKey = @ForeignKey(
                     name = "student_id_fk"
             )
     )
     private Student student;
 
-    public StudentIdCard(Long id, String cardNumber, Student student) {
-        this.id = id;
-        this.cardNumber = cardNumber;
-        this.student = student;
+    @Override
+    public String toString() {
+        return "StudentIdCard{" +
+                "studentCardId=" + studentCardId +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", student=" + student +
+                '}';
     }
 }

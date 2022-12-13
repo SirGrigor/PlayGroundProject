@@ -1,15 +1,14 @@
-package com.demo.playgroundproject;
+package com.demo.playgroundproject.student.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 @Entity(name = "Student")
 @Table(
         name = "student",
@@ -30,9 +29,9 @@ public class Student {
             generator = "student_sequence"
     )
     @Column(
-            name = "id"
+            name = "student_id"
     )
-    private Long id;
+    private Long studentId;
 
     @Column(
             name = "first_name",
@@ -76,6 +75,7 @@ public class Student {
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
             fetch = FetchType.LAZY
     )
+    @ToString.Exclude
     private List<Book> books = new ArrayList<>();
 
     @OneToMany(
@@ -84,13 +84,23 @@ public class Student {
     )
     private List<Enrolment> enrolments = new ArrayList<>();
 
-    public Student(String firstName, String lastName, String email, Integer age, StudentIdCard studentIdCard, List<Book> books, List<Enrolment> enrolments) {
+    public Student(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.age = age;
-        this.studentIdCard = studentIdCard;
-        this.books = books;
-        this.enrolments = enrolments;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentId=" + studentId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                ", studentIdCard=" + studentIdCard +
+                ", books=" + books +
+                ", enrolments=" + enrolments +
+                '}';
     }
 }
