@@ -1,5 +1,6 @@
 package com.demo.playgroundproject.registration.appuser;
 
+import com.demo.playgroundproject.student.model.Student;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,14 +22,15 @@ public class AppUser implements UserDetails {
 
     @Id
     @SequenceGenerator(
-            name = "student_sequence",
-            sequenceName = "student_sequence",
+            name = "app_user_sequence",
+            sequenceName = "app_user_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "student_sequence"
+            generator = "app_user_sequence"
     )
+    @Column(name = "app_user_id")
     private Long appUserId;
     private String firstName;
     private String lastName;
@@ -37,20 +39,26 @@ public class AppUser implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
-    private Boolean locked;
-    private Boolean enabled;
+    private Boolean locked = false;
+    private Boolean enabled = false;
+
+    @OneToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     public AppUser(String firstName,
                    String lastName,
                    String email,
                    String password,
-                   AppUserRole appUserRole
-                   ) {
+                   AppUserRole appUserRole,
+                   Student student
+    ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
+        this.student = student;
     }
 
     @Override

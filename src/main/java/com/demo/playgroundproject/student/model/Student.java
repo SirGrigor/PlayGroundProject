@@ -56,13 +56,6 @@ public class Student {
     )
     private String email;
 
-    @Column(
-            name = "age",
-            nullable = false
-
-    )
-    private Integer age;
-
     @OneToOne(
             mappedBy = "student",
             orphanRemoval = true,
@@ -99,7 +92,6 @@ public class Student {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", age=" + age +
                 ", studentIdCard=" + studentIdCard +
                 ", books=" + books +
                 ", enrolments=" + enrolments +
