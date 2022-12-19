@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,5 +25,17 @@ public class EnrolmentId implements Serializable {
                 "studentId=" + studentId +
                 ", courseId=" + courseId +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EnrolmentId that)) return false;
+        return Objects.equals(studentId, that.studentId) && Objects.equals(courseId, that.courseId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(studentId, courseId);
     }
 }

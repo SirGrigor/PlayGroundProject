@@ -9,14 +9,29 @@ services:
       POSTGRES_DB: demo_db
       POSTGRES_PASSWORD: password
       POSTGRES_USER: postgres
+    networks:
+      - playground-network
 
-  app:
+  maildev:
+    image: djfarrelly/maildev
+    ports:
+      - "1080:80"
+      - "1025:25"
+    environment:
+      - TRUSTED_NETWORKS=0.0.0.0/0
+    restart: always
+    networks:
+      - playground-network
+
+
+  springboot_application:
     container_name: spring-boot-demo-app
     build: .
     ports:
       - "8090:8090"
     depends_on:
       - postgres_db
+      - maildev
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_db:5432/demo_db
       - SPRING_DATASOURCE_USERNAME=postgres
@@ -24,3 +39,12 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
       - SPRING_SQL_INIT_MODE=always
+      - MAIL_HOST=localhost
+      - MAIL_PORT=1025
+    networks:
+      - playground-network
+
+networks:
+  playground-network:
+    ipam:
+      driver: default

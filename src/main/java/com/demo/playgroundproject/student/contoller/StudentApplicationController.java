@@ -1,26 +1,20 @@
 package com.demo.playgroundproject.student.contoller;
 
+import com.demo.playgroundproject.student.model.Student;
 import com.demo.playgroundproject.student.repository.StudentRepository;
 import com.demo.playgroundproject.student.service.StudentService;
-import com.demo.playgroundproject.student.model.Student;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping(path = "api/v1/student")
 public class StudentApplicationController {
 
     private final StudentService studentService;
     private final StudentRepository studentRepository;
-
-    @Autowired
-    public StudentApplicationController(StudentService studentService,
-                                        StudentRepository studentRepository) {
-        this.studentService = studentService;
-        this.studentRepository = studentRepository;
-    }
 
     @GetMapping
     public List<Student> getStudents() {
